@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: example-db
+    volumes:
+    - ./initdb.d:/docker-entrypoint-initdb.d
+    - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: example
+      MYSQL_USER: example
+      MYSQL_PASSWORD: example
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    ports:
+      - "23306:3306"
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "22181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "29092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.1.237
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

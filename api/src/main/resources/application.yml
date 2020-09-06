@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:23306/example
+    username: example
+    password: example
+  kafka:
+    bootstrap-servers: localhost:29092
+
+logging.level.com.github.kenyjm: DEBUG
+
+mybatis.type-handlers-package: com.github.kenyjm.example.kotlinspringkafka.share.mybatis
